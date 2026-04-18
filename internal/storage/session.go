@@ -20,3 +20,17 @@ func (db *Database) CreateSession(ctx context.Context, userID, familyID uuid.UUI
 
 	return nil
 }
+
+func (db *Database) GetSessionByToken(ctx context.Context, tokenHash string) (*Session, error) {
+	var session Session 
+	err := db.Pool.QueryRow(ctx,
+		`SELECT id, user_id, family_id, token_hash, user_agent, ip, expires_at, created_at
+		FROM sessions WHERE token_hash = $1`, tokenHash,
+	).Scan(&session.ID, &session.UserID, &session.FamilyID, &session.TokenHash,
+		&session.UserAgent, &session.IP, &session.ExpiresAt, &session.CreatedAt) 
+	if err != nil {
+		return nil, err
+	}
+
+	return &session, nil 
+}
