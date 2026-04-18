@@ -5,6 +5,7 @@ go 1.26.2
 require (
 	github.com/alexedwards/argon2id v1.0.0
 	github.com/gofrs/uuid/v5 v5.4.0
+	github.com/golang-jwt/jwt v3.2.2+incompatible
 	github.com/jackc/pgx/v5 v5.9.1
 )
 
