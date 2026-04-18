@@ -45,3 +45,14 @@ func (db *Database) DeleteSession(ctx context.Context, id uuid.UUID) error {
 
 	return nil
 }
+
+func (db *Database) DeleteSessionsByFamilyID(ctx context.Context, familyID uuid.UUID) error {
+	_, err := db.Pool.Exec(ctx,
+		"DELETE FROM sessions WHERE id = &1", familyID,
+	)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
